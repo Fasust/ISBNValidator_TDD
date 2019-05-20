@@ -24,4 +24,14 @@ public class StockManagementTest {
         //assertEquals(expected, input);
         assertEquals("6563D8", locatorCode);
     }
+
+    @Test
+    public void dbIsUsedWhenDateIsPresent(){
+        fail();
+    }
+
+    @Test
+    public void webServiceIsUsedWhenDataIsNotPresentInDB(){
+        fail();
+    }
 }
