@@ -10,7 +10,21 @@ public class ValidateISBN {
         if(!isbn.matches("^[0-9]*[0-9X]$"))throw new NumberFormatException("ISBN must only be Digits");
 
         int total = 0;
+        int divisor = 0;
 
+        if(isbn.length() == 10){
+            divisor = 11;
+            total = add10DigitISBN(isbn);
+        }else{
+            divisor = 10;
+            total = add13DigitISBN(isbn);
+        }
+
+        return total % divisor == 0;
+    }
+
+    private int add10DigitISBN(String isbn){
+        int total = 0;
         for(int i = 0; i< isbn.length(); i++){
             if(isbn.charAt(i) == 'X'){
                 total += 10;
@@ -18,7 +32,22 @@ public class ValidateISBN {
             }
             total += Character.getNumericValue(isbn.charAt(i)) * (10 - i);
         }
+        return total;
+    }
 
-        return total % 11 == 0;
+    private int add13DigitISBN(String isbn){
+        int total = 0;
+        for(int i = 0; i< isbn.length(); i++){
+            if(isbn.charAt(i) == 'X'){
+                total += 10;
+                continue;
+            }
+            if(i%2 == 0){
+                total += Character.getNumericValue(isbn.charAt(i));
+            }else {
+                total += Character.getNumericValue(isbn.charAt(i)) *3;
+            }
+        }
+        return total;
     }
 }
