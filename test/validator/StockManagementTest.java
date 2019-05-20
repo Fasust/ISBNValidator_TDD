@@ -1,21 +1,25 @@
 package validator;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.*;
 
 public class StockManagementTest {
 
     @Test
     public void canGetACorrectLocatorCode(){
-        ExternalISBNService mockWebService = isbn -> new Book(
+        StockManager manager = new StockManager();
+
+        //Stubs ----------
+        ExternalISBNService stubWebService = isbn -> new Book(
             isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan");
 
-        ExternalISBNService mockDBService = isbn -> null;
+        ExternalISBNService stubDBService = isbn -> null;
 
-        StockManager manager = new StockManager();
-        manager.setWebService(mockWebService);
-        manager.setDataBaseService(mockDBService);
+        manager.setWebService(stubWebService);
+        manager.setDataBaseService(stubDBService);
+        // ---------------
 
         String isbn = "0143126563";
         String locatorCode = manager.getLocatorCode(isbn);
@@ -27,7 +31,27 @@ public class StockManagementTest {
 
     @Test
     public void dbIsUsedWhenDateIsPresent(){
-        fail();
+        StockManager manager = new StockManager();
+        String isbn = "0143126563";
+
+        //Mocks ----------
+        ExternalISBNService dbService = mock(ExternalISBNService.class);
+        ExternalISBNService webService = mock(ExternalISBNService.class);
+
+        manager.setWebService(webService);
+        manager.setDataBaseService(dbService);
+
+        when(dbService.lookUp(isbn))
+                .thenReturn(new Book(isbn, "abc","abc"));
+        // ---------------
+
+        manager.getLocatorCode(isbn);
+
+        verify(dbService, times(1))
+                .lookUp(isbn);
+
+        verify(webService, times(0))
+                .lookUp(anyString());
     }
 
     @Test
