@@ -18,6 +18,15 @@ public class ValidateISBNTest {
     }
 
     @Test
+    public void checkAValid13DigitISBN(){
+        ValidateISBN validator = new ValidateISBN();
+
+        boolean res = validator.checkISBN("978-0143126560");
+        assertTrue(res,"First: Testing \"How to Get Things Done\" (13 Digit)");
+
+    }
+
+    @Test
     public void ISBNEndingInAnXAreValid(){
         ValidateISBN validator = new ValidateISBN();
 
