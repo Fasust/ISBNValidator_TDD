@@ -21,6 +21,15 @@ public class ValidateISBNTest {
     public void checkAInvalidISBN(){
         ValidateISBN validator = new ValidateISBN();
         boolean res = validator.checkISBN("0143126562");
-        assertFalse(res);
+        assertFalse(res, "First: Incorrect ISBN");
+    }
+
+    @Test
+    public void nineDigitISBNsAreNotAllowed(){
+        ValidateISBN validator = new ValidateISBN();
+
+        assertThrows(NumberFormatException.class,() -> {
+            validator.checkISBN("123456789");
+        });
     }
 }
