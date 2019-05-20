@@ -1,11 +1,10 @@
-import org.junit.Test;
 
-import static org.junit.Assert.fail;
+import org.junit.jupiter.api.Test;
 
-public class ExampleTests {
+class ExampleTests {
 
     @Test
-    public void exampleTest(){
-        fail();
+    private void exampleTest(){
+
     }
 }
