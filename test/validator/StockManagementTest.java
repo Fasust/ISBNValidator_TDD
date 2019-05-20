@@ -8,16 +8,14 @@ public class StockManagementTest {
 
     @Test
     public void canGetACorrectLocatorCode(){
-        ExternalISBNService mockService = new ExternalISBNService() {
-            @Override
-            public Book lookUp(String isbn) {
-                return new Book(
-                    isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan");
-            }
-        };
+        ExternalISBNService mockWebService = isbn -> new Book(
+            isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan");
+
+        ExternalISBNService mockDBService = isbn -> null;
 
         StockManager manager = new StockManager();
-        manager.setWebService(mockService);
+        manager.setWebService(mockWebService);
+        manager.setDataBaseService(mockDBService);
 
         String isbn = "0143126563";
         String locatorCode = manager.getLocatorCode(isbn);
