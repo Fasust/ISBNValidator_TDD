@@ -15,7 +15,8 @@ public class ValidateISBN {
         isbn = isbn.replace("-","");
 
         //Length and Digit Validation
-        if(!(isbn.length() == SHORT_LENGTH || isbn.length() == LONG_LENGTH))
+        final int length = isbn.length();
+        if(!( length == SHORT_LENGTH || length == LONG_LENGTH))
             throw new NumberFormatException("ISBN must be "+SHORT_LENGTH+" or "+LONG_LENGTH+" Digits Long");
 
         if(!isbn.matches("^[0-9]*[0-9X]$"))
@@ -25,7 +26,7 @@ public class ValidateISBN {
         int divisor;
 
         //Calculation of Check Number
-        if(isbn.length() == SHORT_LENGTH){
+        if(length == SHORT_LENGTH){
             divisor = SHORT_DIVISOR;
             total = addShortISBN(isbn);
         }else{
