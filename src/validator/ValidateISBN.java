@@ -3,6 +3,6 @@ package validator;
 public class ValidateISBN {
 
     public boolean checkISBN(int i) {
-        return true;
+        return  i == 0143126563;
     }
 }
