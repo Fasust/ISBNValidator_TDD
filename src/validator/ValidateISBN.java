@@ -2,50 +2,63 @@ package validator;
 
 public class ValidateISBN {
 
+    private static final int SHORT_LENGTH = 10;
+    private static final int LONG_LENGTH = 13;
+    private static final int SHORT_DIVISOR = 11;
+    private static final int LONG_DIVISOR = 10;
+
+    private static final int VALUE_OF_X = 10;
+
     public boolean checkISBN(String isbn) throws NumberFormatException{
+        //Pre-Formatting
         isbn = isbn.toUpperCase();
         isbn = isbn.replace("-","");
 
-        if(!(isbn.length() == 10 || isbn.length() == 13)) throw new NumberFormatException("ISBN must be 10 or 13 Digits Long");
-        if(!isbn.matches("^[0-9]*[0-9X]$"))throw new NumberFormatException("ISBN must only be Digits");
+        //Length and Digit Validation
+        if(!(isbn.length() == SHORT_LENGTH || isbn.length() == LONG_LENGTH))
+            throw new NumberFormatException("ISBN must be "+SHORT_LENGTH+" or "+LONG_LENGTH+" Digits Long");
 
-        int total = 0;
-        int divisor = 0;
+        if(!isbn.matches("^[0-9]*[0-9X]$"))
+            throw new NumberFormatException("ISBN must only be Digits or can END in an \'X\'");
 
-        if(isbn.length() == 10){
-            divisor = 11;
-            total = add10DigitISBN(isbn);
+        int total;
+        int divisor;
+
+        //Calculation of Check Number
+        if(isbn.length() == SHORT_LENGTH){
+            divisor = SHORT_DIVISOR;
+            total = addShortISBN(isbn);
         }else{
-            divisor = 10;
-            total = add13DigitISBN(isbn);
+            divisor = LONG_DIVISOR;
+            total = addLongISBN(isbn);
         }
 
         return total % divisor == 0;
     }
 
-    private int add10DigitISBN(String isbn){
+    private int addShortISBN(String isbn){
         int total = 0;
-        for(int i = 0; i< isbn.length(); i++){
+        for(int i = 0; i< SHORT_LENGTH; i++){
             if(isbn.charAt(i) == 'X'){
-                total += 10;
+                total += VALUE_OF_X;
                 continue;
             }
-            total += Character.getNumericValue(isbn.charAt(i)) * (10 - i);
+            total += Character.getNumericValue(isbn.charAt(i)) * (SHORT_LENGTH - i);
         }
         return total;
     }
 
-    private int add13DigitISBN(String isbn){
+    private int addLongISBN(String isbn){
         int total = 0;
-        for(int i = 0; i< isbn.length(); i++){
+        for(int i = 0; i< LONG_LENGTH; i++){
             if(isbn.charAt(i) == 'X'){
-                total += 10;
+                total += VALUE_OF_X;
                 continue;
             }
             if(i%2 == 0){
                 total += Character.getNumericValue(isbn.charAt(i));
             }else {
-                total += Character.getNumericValue(isbn.charAt(i)) *3;
+                total += Character.getNumericValue(isbn.charAt(i)) * 3;
             }
         }
         return total;
