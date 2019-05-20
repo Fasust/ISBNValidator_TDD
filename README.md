@@ -6,5 +6,7 @@ I followed the Lynda Course ["Practical Test-Driven Development for Java Program
 ## Notes From Class
 
 - Workflow: Red -> Green -> Refactor
+
 - To get to green: Only write the minimum amount of code to make all tests pass (even if you know its wrong in the long run)
 - Start with Red to make sure that the new test executes as expected
+- Each Test must check one **single** peace of logic

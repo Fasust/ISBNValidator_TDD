@@ -2,7 +2,7 @@ package validator;
 
 public class ValidateISBN {
 
-    public boolean checkISBN(int i) {
-        return  i == 0143126563;
+    public boolean checkISBN(int isbn) {
+        return  isbn == 0143126563;
     }
 }
