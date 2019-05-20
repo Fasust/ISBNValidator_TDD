@@ -10,17 +10,17 @@ public class ValidateISBNTest {
     public void checkAValidISBN(){
         ValidateISBN validator = new ValidateISBN();
 
-        boolean res = validator.checkISBN(0143126563);
+        boolean res = validator.checkISBN("0143126563");
         assertTrue(res,"First: Testing \"How to Get Things Done\"");
 
-        res = validator.checkISBN(1473695988);
+        res = validator.checkISBN("1473695988");
         assertTrue(res,"Second: Testing \"Brief Answers to the Big Questions\"");
     }
 
     @Test
     public void checkAInvalidISBN(){
         ValidateISBN validator = new ValidateISBN();
-        boolean res = validator.checkISBN(0143126562);
+        boolean res = validator.checkISBN("0143126562");
         assertFalse(res);
     }
 }
