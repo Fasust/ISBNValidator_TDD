@@ -2,15 +2,23 @@ package validator;
 
 public class StockManager {
 
-    private ExternalISBNService service;
+    private ExternalISBNService webService;
+    private ExternalISBNService dataBaseService;
 
-    public void setService(ExternalISBNService service) {
-        this.service = service;
+    public void setWebService(ExternalISBNService service) {
+        this.webService = service;
+    }
+    public void setDataBaseService(ExternalISBNService service) {
+        this.dataBaseService = service;
     }
 
-    //LocatorCode = Last 4 Digits of ISBN + Initial of Author + Number of Words in Title
-    public String getLocatorCode(String isbn) {
-        Book book = service.lookUp(isbn);
+    /**
+    *LocatorCode = Last 4 Digits of ISBN + Initial of Author + Number of Words in Title
+    *First Tray tp Lookup in local DB, if not saved, get it from webService
+    **/
+     public String getLocatorCode(String isbn) {
+        Book book = dataBaseService.lookUp(isbn);
+        if(book == null) book = webService.lookUp(isbn);
 
         return isbn.substring(isbn.length() - 4) +
                 book.getAuthor().substring(0, 1) +

@@ -17,7 +17,7 @@ public class StockManagementTest {
         };
 
         StockManager manager = new StockManager();
-        manager.setService(mockService);
+        manager.setWebService(mockService);
 
         String isbn = "0143126563";
         String locatorCode = manager.getLocatorCode(isbn);
