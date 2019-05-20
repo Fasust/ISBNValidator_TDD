@@ -5,6 +5,10 @@ I followed the Lynda Course ["Practical Test-Driven Development for Java Program
 
 This is only a tiny test project, but it did help me understand the benefits and the workflow of TDD.
 
+#### Technologies
+- JUnit 
+- Mockito.
+
 ## My Notes from the Course
 
 ### Workflow
