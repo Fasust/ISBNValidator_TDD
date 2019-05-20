@@ -6,14 +6,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StockManagementTest {
 
-    /**
-     * LocatorCode = Last 4 Digits of ISBN + Initial of Author + Number of Words in Title
-     */
     @Test
     public void canGetACorrectLocatorCode(){
-        String isbn = "0143126563";
-        StockManager manager = new StockManager();
+        ExternalISBNService mockService = new ExternalISBNService() {
+            @Override
+            public Book lookUp(String isbn) {
+                return new Book(
+                    isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan");
+            }
+        };
 
+        StockManager manager = new StockManager();
+        manager.setService(mockService);
+
+        String isbn = "0143126563";
         String locatorCode = manager.getLocatorCode(isbn);
 
         //6563 + David Alan + Getting Things Done: The Art of Stress-Free Productivity (8)
