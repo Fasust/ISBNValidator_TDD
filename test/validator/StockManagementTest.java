@@ -56,6 +56,28 @@ public class StockManagementTest {
 
     @Test
     public void webServiceIsUsedWhenDataIsNotPresentInDB(){
-        fail();
+        StockManager manager = new StockManager();
+        String isbn = "0143126563";
+
+        //Mocks ----------
+        ExternalISBNService dbService = mock(ExternalISBNService.class);
+        ExternalISBNService webService = mock(ExternalISBNService.class);
+
+        manager.setWebService(webService);
+        manager.setDataBaseService(dbService);
+
+        when(dbService.lookUp(isbn))
+                .thenReturn(null);
+        when(webService.lookUp(isbn))
+                .thenReturn(new Book(isbn, "abc","abc"));
+        // ---------------
+
+        manager.getLocatorCode(isbn);
+
+        verify(dbService, times(1))
+                .lookUp(isbn);
+
+        verify(webService, times(1))
+                .lookUp(isbn);
     }
 }
