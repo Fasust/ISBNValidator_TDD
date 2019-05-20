@@ -2,7 +2,6 @@ package validator;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 public class StockManagementTest {
@@ -50,7 +49,7 @@ public class StockManagementTest {
         verify(dbService, times(1))
                 .lookUp(isbn);
 
-        verify(webService, times(0))
+        verify(webService, never())
                 .lookUp(anyString());
     }
 
