@@ -37,8 +37,6 @@ public class ValidateISBNTest {
     public void makeSureISBNIsOnlyNumbers(){
         ValidateISBN validator = new ValidateISBN();
 
-        assertThrows(NumberFormatException.class,() -> {
-            validator.checkISBN("HelloWorld");
-        });
+        assertThrows(NumberFormatException.class,() -> validator.checkISBN("HelloWorld"));
     }
 }
