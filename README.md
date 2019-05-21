@@ -13,6 +13,7 @@ This is only a tiny test project, but it did help me understand the benefits and
 
 ### Workflow
 
+- Test
 - *Red* -> *Green* -> *Refactor*
 - Start with *Red* to make sure that the new test executes as expected
 - To get to *Green*: Only write the minimum amount of code to make all tests pass (even if you know it’s wrong in the long run)
