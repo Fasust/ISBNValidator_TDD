@@ -30,6 +30,12 @@ This is only a tiny test project, but it did help me understand the benefits and
 3. Are there Edge-Cases? (What about ISBN that end in X?)
 4. ERROR Conditions? (When are we throwing ERRORs?)
 
+### Types of Mocks
+| Type | What is it for? | In Mockito                 |
+|------|-----------------|----------------------------|
+| Fake | No Test         | mock()                     |
+| Stub | Test Data       | mock() when().thenReturn() |
+| Mock | Test Behaviour  | mock() verify().myMethod() |
 
 ![Work Flow](https://github.com/Fasust/ISBNValidator_TDD/blob/master/assets/tdd_flow.gif)
 
