@@ -8,19 +8,22 @@ public class StockManagementTest {
 
     @Test
     public void canGetACorrectLocatorCode(){
+        String isbn = "0143126563";
         StockManager manager = new StockManager();
 
-        //Stubs ----------
-        ExternalISBNService stubWebService = isbn -> new Book(
-            isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan");
+        //Mocks ----------
+        ExternalISBNService dbService = mock(ExternalISBNService.class);
+        ExternalISBNService webService = mock(ExternalISBNService.class);
 
-        ExternalISBNService stubDBService = isbn -> null;
+        manager.setWebService(webService);
+        manager.setDataBaseService(dbService);
 
-        manager.setWebService(stubWebService);
-        manager.setDataBaseService(stubDBService);
+        when(dbService.lookUp(isbn))
+                .thenReturn(new Book(isbn, "Getting Things Done: The Art of Stress-Free Productivity", "David Alan"));
+        when(webService.lookUp(anyString()))
+                .thenReturn(null);
+
         // ---------------
-
-        String isbn = "0143126563";
         String locatorCode = manager.getLocatorCode(isbn);
 
         //6563 + David Alan + Getting Things Done: The Art of Stress-Free Productivity (8)
